@@ -1,0 +1,4 @@
+.git*
+venv
+src/test
+katka-api*.tgz

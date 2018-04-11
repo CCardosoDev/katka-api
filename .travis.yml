@@ -8,3 +8,11 @@ services:
 
 before_install:
   - pip install --upgrade pip
+install:
+  - pip install codecov
+
+script:
+  - make test
+
+after_success:
+  - codecov
