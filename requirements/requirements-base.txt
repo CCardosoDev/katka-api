@@ -1,0 +1,7 @@
+# Base requirements
+Django
+django-etcd-settings
+djangorestframework
+fqn-decorators
+raven
+timeexecution
