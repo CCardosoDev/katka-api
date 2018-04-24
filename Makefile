@@ -5,6 +5,7 @@
 # * docker-compose
 
 DOCKER_HUB_NAMESPACE=kpnnv
+REPOSITORY=katka-api
 REPOSITORY_TEST=katka-api-test
 
 REQUIREMENTS_BASE:=requirements/requirements-base.txt
@@ -61,6 +62,13 @@ migrate_dev:
 
 
 # ********** Docker **********
+
+docker/build/image:
+	docker build -t $(DOCKER_HUB_NAMESPACE)/$(REPOSITORY):latest .
+
+docker/push/image:
+	docker push $(DOCKER_HUB_NAMESPACE)/$(REPOSITORY):latest
+
 docker/build/test_image:
 	docker build -f Dockerfile-test -t $(DOCKER_HUB_NAMESPACE)/$(REPOSITORY_TEST):latest .
 
