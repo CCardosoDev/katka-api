@@ -1,0 +1,7 @@
+version: "3"
+
+services:
+  test-app:
+    image: "kpnnv/katka-api-test:latest"
+    volumes:
+      - .:/app
