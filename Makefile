@@ -6,7 +6,6 @@
 
 DOCKER_HUB_NAMESPACE=kpnnv
 REPOSITORY=katka-api
-REPOSITORY_TEST=katka-api-test
 
 REQUIREMENTS_BASE:=requirements/requirements-base.txt
 REQUIREMENTS_TEST:=requirements/requirements-testing.txt
@@ -63,17 +62,23 @@ migrate_dev:
 
 # ********** Docker **********
 
-docker/build/image:
-	docker build -t $(DOCKER_HUB_NAMESPACE)/$(REPOSITORY):latest .
-
-docker/push/image:
-	docker push $(DOCKER_HUB_NAMESPACE)/$(REPOSITORY):latest
-
 docker/build/test_image:
-	docker build -f Dockerfile-test -t $(DOCKER_HUB_NAMESPACE)/$(REPOSITORY_TEST):latest .
+	docker build -f Dockerfile-test -t katka-api-test .
 
-docker/push/test_image:
-	docker push $(DOCKER_HUB_NAMESPACE)/$(REPOSITORY_TEST):latest
+docker/remove/test_image:
+	docker rmi katka-api-test
+
+docker/build:
+	docker build -t $(DOCKER_HUB_NAMESPACE)/$(REPOSITORY) .
+
+docker/build/%:
+	docker build -t $(DOCKER_HUB_NAMESPACE)/$(REPOSITORY):$* .
+
+docker/push:
+	docker push $(DOCKER_HUB_NAMESPACE)/$(REPOSITORY)
+
+docker/push/%:
+	docker push $(DOCKER_HUB_NAMESPACE)/$(REPOSITORY):$*
 
 docker/%:
 	$(DOCKER_COMPOSE) run --rm test-app make $*
